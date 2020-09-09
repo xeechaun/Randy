@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Media;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
@@ -64,6 +66,8 @@ namespace Randy
         //****************************//
         private void GetDataButton_Click(object sender, EventArgs e)
         {
+            this.UseWaitCursor = true;
+            GetDataButton.Enabled = false;
             List<string> selectedSources = new List<string>();
             foreach (var cb in FeedsListBox.CheckBoxItems)
             {
@@ -109,6 +113,8 @@ namespace Randy
                     MessageBox.Show(ex.Message);
                 }
             }
+            this.UseWaitCursor = false;
+            GetDataButton.Enabled = true;
         }
         //****************************//
         private void ItemsListBox_CheckBoxCheckedChanged(object sender, EventArgs e)
@@ -153,6 +159,11 @@ namespace Randy
             ItemsListBox.CheckBoxCheckedChanged += ItemsListBox_CheckBoxCheckedChanged;
         }
         //****************************//
+        private void ItemsListBox_SelectedValueChanged(object sender, EventArgs e)
+        {
+            //PrepareData();
+        }
+        //****************************//
         private void ClearFeedButton_Click(object sender, EventArgs e)
         {
             ItemsListBox.CheckBoxCheckedChanged -= ItemsListBox_CheckBoxCheckedChanged;
@@ -169,10 +180,8 @@ namespace Randy
             DataBox.Text = "";
             NumBox.Text = "";
 
-            ItemsListBox.CheckBoxCheckedChanged -= ItemsListBox_CheckBoxCheckedChanged;
+            ItemsListBox.CheckBoxCheckedChanged += ItemsListBox_CheckBoxCheckedChanged;
         }
-        //****************************//
-
         //****************************//
         private void GetNumButton_Click(object sender, EventArgs e)
         {
@@ -279,10 +288,38 @@ namespace Randy
 
             return finalBytes;
         }
+        //****************************//
+        private void SaveButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string fileName = MultiOperationBox.SelectedItem.ToString() + ".csv";
 
-        
+                string sources = "";
 
+                foreach (var cb in FeedsListBox.CheckBoxItems)
+                {
+                    if (cb.Checked)
+                    {
+                        sources += cb.Text + ",";
+                    }
+                }
 
+                string data = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss") + ","+HashListBox.SelectedItem.ToString() + "," + NumBox.Text + "," + sources + Environment.NewLine;
+                using (StreamWriter sw = new StreamWriter(fileName, true))
+                {
+                    sw.Write(data);
+                    sw.Flush();
+                    sw.Close();
+                }
+
+                SystemSounds.Hand.Play();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("error: " + ex.Message);
+            }
+        }
         //****************************//
     }
 }

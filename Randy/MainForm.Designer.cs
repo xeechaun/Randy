@@ -46,6 +46,7 @@
             this.MultiOperationBox = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.SaveButton = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.SettingsButton = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -60,9 +61,9 @@
             this.label1.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(6, 51);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(100, 23);
+            this.label1.Size = new System.Drawing.Size(118, 23);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Select feeds";
+            this.label1.Text = "1. Select feeds";
             // 
             // HashListBox
             // 
@@ -87,9 +88,9 @@
             this.label2.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(3, 34);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(175, 23);
+            this.label2.Size = new System.Drawing.Size(193, 23);
             this.label2.TabIndex = 2;
-            this.label2.Text = "Select hash algorithm";
+            this.label2.Text = "4. Select hash algorithm";
             // 
             // DataBox
             // 
@@ -108,24 +109,24 @@
             // GetDataButton
             // 
             this.GetDataButton.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GetDataButton.Location = new System.Drawing.Point(703, 73);
+            this.GetDataButton.Location = new System.Drawing.Point(687, 73);
             this.GetDataButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.GetDataButton.Name = "GetDataButton";
-            this.GetDataButton.Size = new System.Drawing.Size(149, 31);
+            this.GetDataButton.Size = new System.Drawing.Size(165, 43);
             this.GetDataButton.TabIndex = 2;
-            this.GetDataButton.Text = "Get feed items";
+            this.GetDataButton.Text = "2. Get feed items";
             this.GetDataButton.UseVisualStyleBackColor = true;
             this.GetDataButton.Click += new System.EventHandler(this.GetDataButton_Click);
             // 
             // GetNumButton
             // 
             this.GetNumButton.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GetNumButton.Location = new System.Drawing.Point(384, 23);
+            this.GetNumButton.Location = new System.Drawing.Point(488, 23);
             this.GetNumButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.GetNumButton.Name = "GetNumButton";
             this.GetNumButton.Size = new System.Drawing.Size(173, 85);
             this.GetNumButton.TabIndex = 6;
-            this.GetNumButton.Text = "Generate Random Number >>";
+            this.GetNumButton.Text = "6. Generate Random Number >>";
             this.GetNumButton.UseVisualStyleBackColor = true;
             this.GetNumButton.Click += new System.EventHandler(this.GetNumButton_Click);
             // 
@@ -165,7 +166,7 @@
             this.FeedsListBox.FormattingEnabled = true;
             this.FeedsListBox.Location = new System.Drawing.Point(6, 76);
             this.FeedsListBox.Name = "FeedsListBox";
-            this.FeedsListBox.Size = new System.Drawing.Size(691, 31);
+            this.FeedsListBox.Size = new System.Drawing.Size(675, 31);
             this.FeedsListBox.TabIndex = 10;
             this.FeedsListBox.CheckBoxCheckedChanged += new System.EventHandler(this.FeedsListBox_CheckBoxCheckedChanged);
             // 
@@ -203,6 +204,7 @@
             this.ItemsListBox.Size = new System.Drawing.Size(756, 31);
             this.ItemsListBox.TabIndex = 11;
             this.ItemsListBox.CheckBoxCheckedChanged += new System.EventHandler(this.ItemsListBox_CheckBoxCheckedChanged);
+            this.ItemsListBox.SelectedValueChanged += new System.EventHandler(this.ItemsListBox_SelectedValueChanged);
             // 
             // label3
             // 
@@ -220,9 +222,9 @@
             this.label4.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(6, 120);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(306, 23);
+            this.label4.Size = new System.Drawing.Size(324, 23);
             this.label4.TabIndex = 13;
-            this.label4.Text = "Select feed items to use as source data";
+            this.label4.Text = "3. Select feed items to use as source data";
             // 
             // MultiOperationBox
             // 
@@ -232,7 +234,7 @@
             this.MultiOperationBox.Items.AddRange(new object[] {
             "Concatenate",
             "XOR"});
-            this.MultiOperationBox.Location = new System.Drawing.Point(184, 61);
+            this.MultiOperationBox.Location = new System.Drawing.Point(251, 61);
             this.MultiOperationBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MultiOperationBox.Name = "MultiOperationBox";
             this.MultiOperationBox.Size = new System.Drawing.Size(172, 31);
@@ -242,14 +244,15 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(181, 34);
+            this.label5.Location = new System.Drawing.Point(248, 34);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(197, 23);
+            this.label5.Size = new System.Drawing.Size(215, 23);
             this.label5.TabIndex = 14;
-            this.label5.Text = "Multiple items operation";
+            this.label5.Text = "5. Multiple items operation";
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.SaveButton);
             this.groupBox1.Controls.Add(this.GetNumButton);
             this.groupBox1.Controls.Add(this.MultiOperationBox);
             this.groupBox1.Controls.Add(this.label5);
@@ -261,6 +264,18 @@
             this.groupBox1.TabIndex = 16;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Options";
+            // 
+            // SaveButton
+            // 
+            this.SaveButton.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SaveButton.Location = new System.Drawing.Point(667, 23);
+            this.SaveButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.SaveButton.Name = "SaveButton";
+            this.SaveButton.Size = new System.Drawing.Size(173, 85);
+            this.SaveButton.TabIndex = 16;
+            this.SaveButton.Text = "7. Save to file";
+            this.SaveButton.UseVisualStyleBackColor = true;
+            this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
             // 
             // groupBox2
             // 
@@ -348,6 +363,7 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button SettingsButton;
+        private System.Windows.Forms.Button SaveButton;
     }
 }
 
