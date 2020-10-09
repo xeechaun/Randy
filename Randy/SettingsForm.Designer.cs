@@ -34,7 +34,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.SaveButton = new System.Windows.Forms.Button();
             this.CloseButton = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.AutoSaveIntervalBox = new System.Windows.Forms.NumericUpDown();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.AutoSaveIntervalBox)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -97,12 +100,42 @@
             this.CloseButton.UseVisualStyleBackColor = true;
             this.CloseButton.Click += new System.EventHandler(this.CloseButton_Click);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(20, 391);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(155, 20);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "Auto-Save Interval: ";
+            // 
+            // AutoSaveIntervalBox
+            // 
+            this.AutoSaveIntervalBox.Location = new System.Drawing.Point(182, 392);
+            this.AutoSaveIntervalBox.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.AutoSaveIntervalBox.Name = "AutoSaveIntervalBox";
+            this.AutoSaveIntervalBox.Size = new System.Drawing.Size(120, 22);
+            this.AutoSaveIntervalBox.TabIndex = 5;
+            this.AutoSaveIntervalBox.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.ClientSize = new System.Drawing.Size(608, 430);
+            this.Controls.Add(this.AutoSaveIntervalBox);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.CloseButton);
             this.Controls.Add(this.SaveButton);
             this.Controls.Add(this.groupBox1);
@@ -117,7 +150,9 @@
             this.Load += new System.EventHandler(this.SettingsForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.AutoSaveIntervalBox)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -128,5 +163,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button SaveButton;
         private System.Windows.Forms.Button CloseButton;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.NumericUpDown AutoSaveIntervalBox;
     }
 }

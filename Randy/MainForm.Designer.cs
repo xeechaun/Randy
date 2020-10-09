@@ -34,10 +34,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.HashListBox = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.DataBox = new System.Windows.Forms.TextBox();
+            this.SourceDataBox = new System.Windows.Forms.TextBox();
             this.GetDataButton = new System.Windows.Forms.Button();
             this.GetNumButton = new System.Windows.Forms.Button();
-            this.NumBox = new System.Windows.Forms.TextBox();
+            this.RandBox = new System.Windows.Forms.TextBox();
             this.ClearFeedButton = new System.Windows.Forms.Button();
             this.FeedsListBox = new PresentationControls.CheckBoxComboBox();
             this.ItemsListBox = new PresentationControls.CheckBoxComboBox();
@@ -46,6 +46,7 @@
             this.MultiOperationBox = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.AutoButton = new System.Windows.Forms.Button();
             this.SaveButton = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.SettingsButton = new System.Windows.Forms.Button();
@@ -71,11 +72,11 @@
             this.HashListBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.HashListBox.FormattingEnabled = true;
             this.HashListBox.Items.AddRange(new object[] {
+            "SHA512",
             "MD5",
             "SHA1",
             "SHA256",
-            "SHA384",
-            "SHA512"});
+            "SHA384"});
             this.HashListBox.Location = new System.Drawing.Point(6, 61);
             this.HashListBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.HashListBox.Name = "HashListBox";
@@ -92,19 +93,19 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "4. Select hash algorithm";
             // 
-            // DataBox
+            // SourceDataBox
             // 
-            this.DataBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.SourceDataBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.DataBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DataBox.Location = new System.Drawing.Point(6, 216);
-            this.DataBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.DataBox.Multiline = true;
-            this.DataBox.Name = "DataBox";
-            this.DataBox.ReadOnly = true;
-            this.DataBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.DataBox.Size = new System.Drawing.Size(846, 111);
-            this.DataBox.TabIndex = 3;
+            this.SourceDataBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SourceDataBox.Location = new System.Drawing.Point(6, 216);
+            this.SourceDataBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.SourceDataBox.Multiline = true;
+            this.SourceDataBox.Name = "SourceDataBox";
+            this.SourceDataBox.ReadOnly = true;
+            this.SourceDataBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.SourceDataBox.Size = new System.Drawing.Size(1046, 111);
+            this.SourceDataBox.TabIndex = 3;
             // 
             // GetDataButton
             // 
@@ -130,25 +131,25 @@
             this.GetNumButton.UseVisualStyleBackColor = true;
             this.GetNumButton.Click += new System.EventHandler(this.GetNumButton_Click);
             // 
-            // NumBox
+            // RandBox
             // 
-            this.NumBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.RandBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.NumBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NumBox.Location = new System.Drawing.Point(6, 30);
-            this.NumBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.NumBox.Multiline = true;
-            this.NumBox.Name = "NumBox";
-            this.NumBox.ReadOnly = true;
-            this.NumBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.NumBox.Size = new System.Drawing.Size(846, 63);
-            this.NumBox.TabIndex = 7;
+            this.RandBox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RandBox.Location = new System.Drawing.Point(6, 30);
+            this.RandBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.RandBox.Multiline = true;
+            this.RandBox.Name = "RandBox";
+            this.RandBox.ReadOnly = true;
+            this.RandBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.RandBox.Size = new System.Drawing.Size(1040, 63);
+            this.RandBox.TabIndex = 7;
             // 
             // ClearFeedButton
             // 
             this.ClearFeedButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.ClearFeedButton.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ClearFeedButton.Location = new System.Drawing.Point(768, 139);
+            this.ClearFeedButton.Location = new System.Drawing.Point(968, 139);
             this.ClearFeedButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.ClearFeedButton.Name = "ClearFeedButton";
             this.ClearFeedButton.Size = new System.Drawing.Size(84, 42);
@@ -252,6 +253,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.AutoButton);
             this.groupBox1.Controls.Add(this.SaveButton);
             this.groupBox1.Controls.Add(this.GetNumButton);
             this.groupBox1.Controls.Add(this.MultiOperationBox);
@@ -260,10 +262,22 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Location = new System.Drawing.Point(12, 352);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(858, 115);
+            this.groupBox1.Size = new System.Drawing.Size(1052, 115);
             this.groupBox1.TabIndex = 16;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Options";
+            // 
+            // AutoButton
+            // 
+            this.AutoButton.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AutoButton.Location = new System.Drawing.Point(873, 23);
+            this.AutoButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.AutoButton.Name = "AutoButton";
+            this.AutoButton.Size = new System.Drawing.Size(173, 85);
+            this.AutoButton.TabIndex = 17;
+            this.AutoButton.Text = "Auto Save: Start";
+            this.AutoButton.UseVisualStyleBackColor = true;
+            this.AutoButton.Click += new System.EventHandler(this.AutoButton_Click);
             // 
             // SaveButton
             // 
@@ -283,14 +297,14 @@
             this.groupBox2.Controls.Add(this.FeedsListBox);
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Controls.Add(this.DataBox);
+            this.groupBox2.Controls.Add(this.SourceDataBox);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.ClearFeedButton);
             this.groupBox2.Controls.Add(this.ItemsListBox);
             this.groupBox2.Controls.Add(this.GetDataButton);
             this.groupBox2.Location = new System.Drawing.Point(12, 13);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(858, 333);
+            this.groupBox2.Size = new System.Drawing.Size(1058, 333);
             this.groupBox2.TabIndex = 17;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Data";
@@ -310,10 +324,10 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.NumBox);
+            this.groupBox3.Controls.Add(this.RandBox);
             this.groupBox3.Location = new System.Drawing.Point(12, 478);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(858, 100);
+            this.groupBox3.Size = new System.Drawing.Size(1052, 100);
             this.groupBox3.TabIndex = 18;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Generated Random";
@@ -322,7 +336,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(882, 603);
+            this.ClientSize = new System.Drawing.Size(1082, 603);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox2);
@@ -348,10 +362,10 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox HashListBox;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox DataBox;
+        private System.Windows.Forms.TextBox SourceDataBox;
         private System.Windows.Forms.Button GetDataButton;
         private System.Windows.Forms.Button GetNumButton;
-        private System.Windows.Forms.TextBox NumBox;
+        private System.Windows.Forms.TextBox RandBox;
         private System.Windows.Forms.Button ClearFeedButton;
         private PresentationControls.CheckBoxComboBox FeedsListBox;
         private PresentationControls.CheckBoxComboBox ItemsListBox;
@@ -364,6 +378,7 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button SettingsButton;
         private System.Windows.Forms.Button SaveButton;
+        private System.Windows.Forms.Button AutoButton;
     }
 }
 

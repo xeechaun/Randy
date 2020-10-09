@@ -9,11 +9,14 @@ namespace Randy
     {
         public string FeedSources { get; set; }
 
+        public int AutoSaveInterval { get; set; }
         public Settings()
         {
             FeedSources = "";
             //if (!Directory.Exists(appDirectory))
             //    Directory.CreateDirectory(appDirectory);
+
+            AutoSaveInterval = 15;
 
         }
 

@@ -21,6 +21,11 @@ namespace Randy
 
         Dictionary<string, string> feedItems = new Dictionary<string, string>();
 
+        bool isRunning = false;
+        System.Timers.Timer autoTimer = new System.Timers.Timer();
+
+        string lastRandomString = "";
+
         public MainForm()
         {
             InitializeComponent();
@@ -61,7 +66,7 @@ namespace Randy
 
             items = null;
             ItemsListBox.Items.Clear();
-            DataBox.Text = "";
+            SourceDataBox.Text = "";
         }
         //****************************//
         private void GetDataButton_Click(object sender, EventArgs e)
@@ -110,11 +115,43 @@ namespace Randy
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    UpdateLog(ex.Message);
                 }
             }
             this.UseWaitCursor = false;
             GetDataButton.Enabled = true;
+        }
+        //****************************//
+        public static void UpdateLog(string Message)
+        {
+            try
+            {
+                Message = DateTime.Now.ToString("MM-dd-yyyy HH:mm:ss") + "> " + Message;
+                string filePath = "logs";
+                string FileName = DateTime.Now.ToString("MM-dd-yyyy");
+                if (!Directory.Exists(filePath))
+                    Directory.CreateDirectory(filePath);
+
+                filePath = filePath + "\\Log " + FileName + ".txt";
+
+                if (System.IO.File.Exists(filePath))
+                {
+                    using (StreamWriter writer = System.IO.File.AppendText(filePath))
+                    {
+                        writer.Write(Message + Environment.NewLine);
+                    }
+                }
+                else
+                {
+                    using (StreamWriter writer = System.IO.File.CreateText(filePath))
+                    {
+                        writer.Write(Message + Environment.NewLine + Environment.NewLine);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+            }
         }
         //****************************//
         private void ItemsListBox_CheckBoxCheckedChanged(object sender, EventArgs e)
@@ -168,7 +205,7 @@ namespace Randy
         {
             ItemsListBox.CheckBoxCheckedChanged -= ItemsListBox_CheckBoxCheckedChanged;
 
-            FeedsListBox.ClearSelection();
+            //FeedsListBox.ClearSelection();
             //foreach (var cb in FeedsListBox.CheckBoxItems)
             //{
             //    cb.Checked = false;
@@ -177,8 +214,8 @@ namespace Randy
             ItemsListBox.ClearSelection();
             ItemsListBox.Items.Clear();
 
-            DataBox.Text = "";
-            NumBox.Text = "";
+            SourceDataBox.Text = "";
+            RandBox.Text = "";
 
             ItemsListBox.CheckBoxCheckedChanged += ItemsListBox_CheckBoxCheckedChanged;
         }
@@ -188,15 +225,15 @@ namespace Randy
             byte[] finalData = PrepareData();
 
             if(HashListBox.SelectedItem.ToString()== "MD5")
-                NumBox.Text = Hash.MD5(finalData);
+                RandBox.Text = Hash.MD5(finalData);
             else if (HashListBox.SelectedItem.ToString() == "SHA1")
-                NumBox.Text = Hash.SHA1(finalData);
+                RandBox.Text = Hash.SHA1(finalData);
             else if (HashListBox.SelectedItem.ToString() == "SHA256")
-                NumBox.Text = Hash.SHA256(finalData);
+                RandBox.Text = Hash.SHA256(finalData);
             else if (HashListBox.SelectedItem.ToString() == "SHA384")
-                NumBox.Text = Hash.SHA384(finalData);
+                RandBox.Text = Hash.SHA384(finalData);
             else if (HashListBox.SelectedItem.ToString() == "SHA512")
-                NumBox.Text = Hash.SHA512(finalData);
+                RandBox.Text = Hash.SHA512(finalData);
         }
         //****************************//
         private byte[] PrepareData()
@@ -247,7 +284,7 @@ namespace Randy
                 allDataStr = allDataStr.Substring(2);
             if (allDataStr.EndsWith(Environment.NewLine))
                 allDataStr = allDataStr.Substring(0, allDataStr.Length-2);
-            DataBox.Text = allDataStr;
+            SourceDataBox.Text = allDataStr;
 
             if (concatenate)
                 finalData = Encoding.ASCII.GetBytes(allDataStr);
@@ -293,7 +330,15 @@ namespace Randy
         {
             try
             {
-                string fileName = MultiOperationBox.SelectedItem.ToString() + ".csv";
+                string randomData = RandBox.Text;
+
+                if (randomData.Equals(lastRandomString))
+                    return;
+
+                string sourceData = SourceDataBox.Text;
+                lastRandomString = randomData;
+
+                string fileName = "randomData.csv";
 
                 string sources = "";
 
@@ -305,10 +350,18 @@ namespace Randy
                     }
                 }
 
-                string data = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss") + ","+HashListBox.SelectedItem.ToString() + "," + NumBox.Text + "," + sources + Environment.NewLine;
+                string id = DateTime.Now.ToString("yyyyMMddhhmmss");
+                string data = id + "," + DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss") + ","+HashListBox.SelectedItem.ToString() + "," + RandBox.Text + "," + sources + Environment.NewLine;
                 using (StreamWriter sw = new StreamWriter(fileName, true))
                 {
                     sw.Write(data);
+                    sw.Flush();
+                    sw.Close();
+                }
+
+                using (StreamWriter sw = new StreamWriter(id+".txt", true))
+                {
+                    sw.Write(sourceData);
                     sw.Flush();
                     sw.Close();
                 }
@@ -317,8 +370,62 @@ namespace Randy
             }
             catch (Exception ex)
             {
-                MessageBox.Show("error: " + ex.Message);
+                UpdateLog("error: " + ex.Message);
             }
+        }
+        //****************************//
+        private void AutoButton_Click(object sender, EventArgs e)
+        {
+            if (isRunning)
+            {
+                isRunning = false;
+                AutoButton.Text = "Auto Save: Start";
+                autoTimer.Enabled = false;
+            }
+            else
+            {
+                AutoButton.Text = "Auto Save: Stop";
+                isRunning = true;
+                autoTimer = new System.Timers.Timer();
+                autoTimer.Interval = 5000;
+                autoTimer.Elapsed += AutoTimer_Elapsed;
+                autoTimer.Enabled = true;
+            }
+        }
+        //****************************//
+        private void AutoTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            autoTimer.Enabled = false;
+
+            autoTimer.Interval = 1000 * Settings.CurrentSettings.AutoSaveInterval;
+
+            try
+            {
+                this.Invoke(new Action(() =>
+                {
+                    SourceDataBox.Text = "";
+
+                    GetDataButton_Click(null, null);
+
+                    foreach (var cb in ItemsListBox.CheckBoxItems)
+                    {
+                        if (cb.Text != "Select All")
+                        {
+                            cb.Checked = true;
+                        }
+                    }
+
+                    GetNumButton_Click(null, null);
+
+                    SaveButton_Click(null, null);
+                }));
+            }
+            catch (Exception ex)
+            {
+                UpdateLog("AutoTimer_Elapsed(): " + ex.Message);
+            }
+
+            autoTimer.Enabled = isRunning;
         }
         //****************************//
     }

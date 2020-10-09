@@ -22,6 +22,7 @@ namespace Randy
         {
             if (Settings.CurrentSettings.FeedSources.Length > 0)
                 FeedsBox.Text = Settings.CurrentSettings.FeedSources;
+            AutoSaveIntervalBox.Value = Settings.CurrentSettings.AutoSaveInterval;
         }
         //*****************************************************************//
         private void CloseButton_Click(object sender, EventArgs e)
@@ -32,27 +33,9 @@ namespace Randy
         private void SaveButton_Click(object sender, EventArgs e)
         {
             Settings.CurrentSettings.FeedSources = FeedsBox.Text;
+            Settings.CurrentSettings.AutoSaveInterval = (int)AutoSaveIntervalBox.Value;
             Settings.SaveSettings();
             this.Close();
-        }
-    }
-
-    public class DeviceParams
-    {
-        public string IPAddress { get; set; }
-        public int Port { get; set; }
-        public int DeviceID { get; set; }
-        public int Password { get; set; }
-        public string Name { get; set; }
-
-        public DeviceParams(string paramsRow)
-        {
-            string[] param = paramsRow.Split(new [] { "," }, StringSplitOptions.RemoveEmptyEntries);
-
-            IPAddress = param[0].Replace(" ", "");
-            Port = Convert.ToInt32(param[1].Replace(" ", ""));
-            Password = Convert.ToInt32(param[2].Replace(" ", ""));
-            Name = param[3];
         }
     }
 }
